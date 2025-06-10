@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ГНБ технологии - Буровые услуги по Вологде и Вологодской области</title>
+    <!-- Подключение шрифта Open Sans с оптимизацией -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    </noscript>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Иконки Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --navbar-height: 56px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: var(--navbar-height);
+        }
+
+        @media (min-width: 992px) {
+            :root {
+                --navbar-height: 70px;
+            }
+        }
+
+        /* Глобальные стили */
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: #212529;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        body.loaded {
+            opacity: 1;
+            overflow: auto;
+            height: auto;
+        }
+        
+        body.loaded .preloader {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        body:not(.loaded) {
+            overflow: hidden;
+            height: 100vh;
+        }
+        
+        .z-index-9999 {
+            z-index: 9999;
+        }
+        
+        /* Специфичные элементы */
+        .step-number {
+            top: -1.5rem;
+        }
+        
+        /* Типография */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+        }
+        
+        .lead {
+            font-weight: 400;
+        }
+        
+        /* Стили для кнопок */
+        .btn {
+            border-radius: 4px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: all 0.25s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            border: none;
+            padding: 0.5rem 1.25rem;
+        }
+        
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-primary {
+            background-color: #0a58ca;
+            color: #ffffff;
+        }
+        
+        .btn-primary:hover {
+            background-color: #0b5ed7;
+        }
+        
+        .btn-secondary {
+            background-color: #495057;
+            color: #ffffff;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #343a40;
+        }
+        
+        .btn-outline-primary {
+            background-color: transparent;
+            border: 1px solid #0a58ca;
+            color: #0a58ca;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: #0a58ca;
+            color: #ffffff;
+        }
+        
+        .btn-outline-secondary {
+            background-color: transparent;
+            border: 1px solid #495057;
+            color: #495057;
+        }
+        
+        .btn-outline-secondary:hover {
+            background-color: #495057;
+            color: #ffffff;
+        }
+        
+        .btn-lg {
+            padding: 0.75rem 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        /* Навигация */
+        .navbar-dark .navbar-nav .nav-link {
+            color: rgba(255, 255, 255, 0.85);
+            transition: color 0.2s ease;
+        }
+        
+        .navbar-dark .navbar-nav .nav-link:hover {
+            color: #ffffff;
+        }
+        
+        .navbar-dark .navbar-nav .nav-link.active {
+            color: #ffffff;
+            font-weight: 500;
+        }
+        
+        /* Контактная информация в навигации */
+        .navbar-contact {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            margin-left: auto;
+            padding-right: 1rem;
+        }
+        
+        .navbar-contact-phone,
+        .navbar-contact-email {
+            font-weight: 500;
+        }
+        
+        .navbar-contact a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        .navbar-contact a:hover {
+            color: #ffffff;
+        }
+        
+        .navbar-contact a i {
+            color: rgba(255, 255, 255, 0.8);
+            transition: color 0.2s ease;
+        }
+        
+        .navbar-contact a:hover i {
+            color: #ffffff;
+        }
+        
+        /* Центрированное меню */
+        .navbar-nav.mx-auto {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        /* Анимация шестеренки */
+        .gear-icon {
+            display: inline-block;
+            animation: rotate 4s linear infinite;
+            transform-origin: center;
+        }
+        
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        /* Адаптация для мобильных устройств */
+        @media (max-width: 991.98px) {
+            .navbar-contact {
+                display: none;
+            }
+            
+            .navbar-nav.mx-auto {
+                position: static;
+                left: auto;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Прелоадер -->
+    <div class="preloader position-fixed top-0 start-0 w-100 h-100 bg-white d-flex justify-content-center align-items-center z-index-9999">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Загрузка...</span>
+        </div>
+    </div>
+
+    <!-- Навигационная панель -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-gear gear-icon me-2"></i>ГНБ Технологии
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- Контактная информация справа -->
+                <div class="navbar-contact d-none d-lg-block">
+                    <div class="navbar-contact-phone">
+                        <a href="tel:+79114430101">
+                            <i class="bi bi-telephone me-1"></i> +7 (911) 443-01-01
+                        </a>
+                    </div>
+                    <div class="navbar-contact-email">
+                        <a href="mailto:info@gnb-tech.ru">
+                            <i class="bi bi-envelope me-1"></i> info@gnb-tech.ru
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Центрированное меню -->
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#process">Процесс</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Услуги</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Контакты</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero секция -->
+    <section class="py-5 py-lg-5 bg-light text-dark">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 order-lg-1 order-2">
+                    <h1 class="display-4 fw-bold mb-4">Горизонтально-направленное бурение</h1>
+                    <p class="lead mb-4">Профессиональное выполнение работ методом ГНБ с соблюдением всех технических норм и требований безопасности.</p>
+                    <div class="d-flex gap-2 flex-wrap flex-sm-nowrap">
+                        <a href="tel:+79114430101" class="btn btn-primary btn-lg px-4 py-2">
+                            <i class="bi bi-telephone me-2"></i>Связаться с нами
+                        </a>
+                        <a href="#process" class="btn btn-outline-secondary btn-lg px-4 py-2">
+                            <i class="bi bi-info-circle me-2"></i>Узнать больше
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-lg-2 order-1 mb-4 mb-lg-0">
+                    <img src="C:\Users\echok\Downloads\web\images\drill.png" alt="ГНБ оборудование" class="img-fluid" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция процесса ГНБ -->
+    <section id="process" class="py-4 py-lg-5 bg-light text-dark">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Процесс ГНБ</h2>
+                <p class="lead text-muted">ГНБ работает в шесть отдельных этапов</p>
+            </div>
+            
+            <!-- Шаг 1 -->
+            <div class="row align-items-center mb-5 position-relative">
+                <div class="col-lg-6">
+                    <div class="position-relative">
+                        <div class="position-absolute top-0 start-0 text-start fs-4 opacity-50 step-number">01</div>
+                        <div class="pt-4">
+                            <h3 class="fw-bold">Первый этап</h3>
+                            <p>Буровая установка направляется из стартового котлована в землю через точку входа, что позволяет начать процесс бурения.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img src="C:\Users\echok\Downloads\web\images\illustration-hdd-process-01.png" alt="Этап 1" class="img-fluid" loading="lazy">
+                </div>
+            </div>
+            
+            <!-- Шаг 2 -->
+            <div class="row align-items-center mb-5 position-relative">
+                <div class="col-lg-6 order-lg-2 order-1">
+                    <div class="position-relative">
+                        <div class="position-absolute top-0 start-0 text-start fs-4 opacity-50 step-number">02</div>
+                        <div class="pt-4">
+                            <h3 class="fw-bold">Второй этап</h3>
+                            <p>Когда каждая буровая штанга прикреплена и пробурена в земле, опытный оператор слежения будет передавать информацию оператору установки по двусторонней радиосвязи.</p>
+                            <p>Передняя часть буровой головки имеет специальную угловую конструкцию, что означает, что если трекер хочет управлять буром, он проинструктирует оператор буровой установки толкать буровую головку в определенном направлении. Дрель можно направлять вокруг и выше или ниже существующих коммуникаций, чтобы избежать их - это чрезвычайно важно, так как помогает предотвратить повреждения и неточности. Если требуется прямая линия, то оператор буровой установки вращает штанги и бурит землю насквозь.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-lg-1 order-2">
+                    <img src="C:\Users\echok\Downloads\web\images\illustration-hdd-process-02.png" alt="Этап 2" class="img-fluid" loading="lazy">
+                </div>
+            </div>
+            
+            <!-- Шаг 3 -->
+            <div class="row align-items-center mb-5 position-relative">
+                <div class="col-lg-6">
+                    <div class="position-relative">
+                        <div class="position-absolute top-0 start-0 text-start fs-4 opacity-50 step-number">03</div>
+                        <div class="pt-4">
+                            <h3 class="fw-bold">Третий этап</h3>
+                            <p>Буровой раствор (также известный как буровой раствор) закачивается через штанги к буровой головке для смазки буровой головки и буровой колонны штанг, а также для облегчения управления.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img src="C:\Users\echok\Downloads\web\images\illustration-hdd-process-03.png" alt="Этап 3" class="img-fluid" loading="lazy">
+                </div>
+            </div>
+            
+            <!-- Шаг 4 -->
+            <div class="row align-items-center mb-5 position-relative">
+                <div class="col-lg-6 order-lg-2 order-1">
+                    <div class="position-relative">
+                        <div class="position-absolute top-0 start-0 text-start fs-4 opacity-50 step-number">04</div>
+                        <div class="pt-4">
+                            <h3 class="fw-bold">Четвертый этап</h3>
+                            <p>После того, как бур достигает приемной ямы, буровая головка снимается и прикрепляется развертка. Затем развертка поворачивается обратно через землю, тем самым увеличивая отверстие, созданное пилотным буром. В зависимости от размеров трубы, которую необходимо установить, этот процесс иногда повторяется, чтобы каждый раз увеличивать размер разверток до тех пор, пока не будет достигнут требуемый диаметр отверстия.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-lg-1 order-2">
+                    <img src="C:\Users\echok\Downloads\web\images\illustration-hdd-process-04.png" alt="Этап 4" class="img-fluid" loading="lazy">
+                </div>
+            </div>
+            
+            <!-- Шаг 5 -->
+            <div class="row align-items-center mb-5 position-relative">
+                <div class="col-lg-6">
+                    <div class="position-relative">
+                        <div class="position-absolute top-0 start-0 text-start fs-4 opacity-50 step-number">05</div>
+                        <div class="pt-4">
+                            <h3 class="fw-bold">Пятый этап</h3>
+                            <p>После того, как отверстие нужного размера достигнуто и развертка возвращается в приемную яму, развертка крепится к трубе с помощью буксирной головки (также известной как тяговая головка).</p>
+                            <p>Начинается откат, и труба оттягивается назад по траектории бурения. Затем буровые растворы перекачиваются через штанги в развертку для стабилизации ствола, а также для смазки развертки и трубы.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img src="C:\Users\echok\Downloads\web\images\illustration-hdd-process-05.png" alt="Этап 5" class="img-fluid" loading="lazy">
+                </div>
+            </div>
+            
+            <!-- Шаг 6 -->
+            <div class="row align-items-center mb-5 position-relative">
+                <div class="col-lg-6 order-lg-2 order-1">
+                    <div class="position-relative">
+                        <div class="position-absolute top-0 start-0 text-start fs-4 opacity-50 step-number">06</div>
+                        <div class="pt-4">
+                            <h3 class="fw-bold">Шестой этап</h3>
+                            <p>На этом заключительном этапе труба протягивается обратно в стартовую яму, где развертка и буксирная головка удаляются, а также выполняются окончательные соединения труб.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-lg-1 order-2">
+                    <img src="C:\Users\echok\Downloads\web\images\illustration-hdd-process-06.png" alt="Этап 6" class="img-fluid" loading="lazy">
+                </div>
+            </div>
+            
+            <!-- Разрешение на работы -->
+            <div class="row align-items-center mb-5 position-relative">
+                <div class="col-lg-6">
+                    <div class="pt-4">
+                        <h3 class="fw-bold">Разрешение на работы</h3>
+                        <p>Прежде чем проводить какие-либо буровые работы, необходимо провести обследование всех существующих подземных коммуникаций. При необходимости могут быть вырыты пробные скважины для выявления и определения точной глубины коммуникаций, пересекающих траекторию бурения.</p>
+                        <p>После того, как все коммуникации должным образом расположены, эта информация передается в «разрешение на бурение» вместе с подробной информацией о глубине и направлении траектории бурения. Затем документ подписывается клиентом, и наш ведущий буровой оператор подтверждает, что вся необходимая информация является точной для участка.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img src="C:\Users\echok\Downloads\web\images\work-permit2.png" alt="Разрешение на работы" class="img-fluid" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h5 class="fw-bold mb-3"><i class="bi bi-gear gear-icon me-2"></i>ГНБ Технологии</h5>
+                    <p>Мы выполняем работы методом горизонтано-направленного бурения с 2010 года. Более 200 успешно завершенных проектов.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#" class="text-white me-3"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h5 class="fw-bold mb-3">Меню</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Главная</a></li>
+                        <li class="mb-2"><a href="#process" class="text-white text-decoration-none">Процесс</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Услуги</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="fw-bold mb-3">Услуги</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Горизонтальное бурение</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Прокладка коммуникаций</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Обследование трасс</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Техническая поддержка</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="fw-bold mb-3">Контакты</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a href="mailto:info@gnb-tech.ru" class="text-white text-decoration-none">
+                                <i class="bi bi-envelope me-2"></i> info@gnb-tech.ru
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="tel:+71234567890" class="text-white text-decoration-none">
+                                <i class="bi bi-telephone me-2"></i> +7 (911) 443-01-01
+                            </a>
+                        </li>
+                        <li>
+                            <i class="bi bi-geo-alt me-2"></i> Вологда, ул. Промышленная, 10
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-secondary">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2025 ГНБ Технологии. Все права защищены.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-white text-decoration-none me-3">Политика конфиденциальности</a>
+                    <a href="#" class="text-white text-decoration-none">Условия использования</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Показываем контент только после полной загрузки
+    window.addEventListener('load', function() {
+        document.body.classList.add('loaded');
+        
+        // Элементы навигации
+        const navbarToggler = document.querySelector('.navbar-toggler');
+        const navbarCollapse = document.querySelector('.navbar-collapse');
+        const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
+        
+        // Функция для закрытия меню
+        function closeNavbar() {
+            if (window.innerWidth < 992 && navbarCollapse.classList.contains('show')) {
+                navbarToggler.click();
+            }
+        }
+        
+        // Закрытие при клике на документ (кроме самого меню и кнопки)
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.navbar-collapse') && !e.target.closest('.navbar-toggler')) {
+                closeNavbar();
+            }
+        });
+        
+        // Закрытие при клике на якорные ссылки
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Если это якорная ссылка и меню открыто на мобильном устройстве
+                if (this.getAttribute('href') !== '#' && 
+                    window.innerWidth < 992 && 
+                    navbarCollapse.classList.contains('show')) {
+                    
+                    // Отменяем стандартное поведение
+                    e.preventDefault();
+                    
+                    // Сохраняем целевой элемент для скролла
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    // Закрываем меню
+                    closeNavbar();
+                    
+                    // Ждем завершения анимации закрытия меню (300ms - стандартное время анимации Bootstrap)
+                    setTimeout(() => {
+                        // Выполняем плавный скролл к цели
+                        if (targetElement) {
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                            
+                            // Обновляем URL без перезагрузки страницы
+                            history.pushState(null, null, targetId);
+                        }
+                    }, 300);
+                }
+            });
+        });
+    });
+    
+    // Если страница загружается слишком долго, все равно покажем контент через 3 секунды
+    setTimeout(function() {
+        document.body.classList.add('loaded');
+    }, 3000);
+});
+</script>
+</body>
+</html>
